@@ -1,6 +1,7 @@
 from flask.cli import FlaskGroup
 
-from project import app, db
+from project import create_app, db
+from project.api.models import User
 
 import unittest
 # Hack to fix error when trying to run tests
@@ -8,7 +9,8 @@ import unittest
 import werkzeug
 werkzeug.cached_property = werkzeug.utils.cached_property
 
-cli = FlaskGroup(app)
+app = create_app()
+cli = FlaskGroup(create_app=create_app)
 
 @cli.command()
 def recreate_db():
